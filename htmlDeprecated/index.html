@@ -1,0 +1,54 @@
+<html>
+<head>
+    <title>Test select</title>
+   <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>-->
+    <script src="/JS/jquery-3.5.1.js"></script>
+    <script type="text/javascript">
+        function riempiSelect(){
+            var $select = $('#sub_category');
+            $select.find('option').remove();
+            if($('#root_category').val() != '#'){
+                $.getJSON( 'select.php', {
+                        root_category: $('#root_category').val()
+                    }
+                )
+                    .done(function( data ) {
+                        $.each( data, function( key, value ) {
+                            $('<option>').val(key).text(value).appendTo($select);
+                        });
+                    });
+            }
+        }
+    </script>
+</head>
+<body>
+<form name="modulo" id="idModulo" method="post" action="index.html">
+    Scegli la regione:
+    <select name="root_category" id="root_category" onChange="riempiSelect();">
+        <option value="#">Selezionare</option>
+        <option value="piemonte">Piemonte</option>
+        <option value="valle_d_aosta">Valle d'Aosta</option>
+        <option value="lombardia">Lombardia</option>
+        <option value="trentino_alto_adige">Trentino-Alto Adige</option>
+        <option value="veneto">Veneto</option>
+        <option value="friuli_venezia_giulia">Friuli-Venezia Giulia</option>
+        <option value="liguria">Liguria</option>
+        <option value="emilia_romagna">Emilia-Romagna</option>
+        <option value="toscana">Toscana</option>
+        <option value="umbria">Umbria</option>
+        <option value="marche">Marche</option>
+        <option value="lazio">Lazio</option>
+        <option value="abruzzo">Abruzzo</option>
+        <option value="molise">Molise</option>
+        <option value="campania">Campania</option>
+        <option value="puglia">Puglia</option>
+        <option value="basilicata">Basilicata</option>
+        <option value="calabria">Calabria</option>
+        <option value="sicilia">Sicilia</option>
+        <option value="sardegna">Sardegna</option>
+    </select>
+    <br /> <br />
+    Qui appariranno le province:<select name="sub_category" id="sub_category"></select>
+</form>
+</body>
+</html>
