@@ -9,7 +9,6 @@ spl_autoload_register(
         include __DIR__ . '/../../library/' . $className . '.php';
     }
 );
-
 $entiLocaliMapper = new EntiLocaliMapper();
 
 $fieldReg = [
@@ -34,6 +33,7 @@ $fieldReg = [
     19 => 'sicilia',
     20 => 'sardegna',
 ];
+
 
 //Chiamata findProvinciaByRegione, restituisce le province di interesse in base alla regione selezionata:
 $findProvinciaBy1 = $entiLocaliMapper->findProvinciaByRegione(1);
@@ -83,27 +83,5 @@ $elenco_province[$fieldReg[20]] = $findProvinciaBy20;
 
 echo json_encode($elenco_province[$_GET['root_category']]);
 
-$isShow = false;
-if ($isShow) {
-//Chiamata findComuneByRegioneProvincia, restituisce i comuni di interesse in base alla regione selezionata e alla provincia selezionata:
-    $findComuneBy1 = $entiLocaliMapper->findComuneByRegioneProvincia(1,);
-    $findComune2 = $entiLocaliMapper->findComuneByRegioneProvincia(2,);
-    $findComune3 = $entiLocaliMapper->findComuneByRegioneProvincia(3,);
-    $findComune4 = $entiLocaliMapper->findComuneByRegioneProvincia(4,);
-    $findComune5 = $entiLocaliMapper->findComuneByRegioneProvincia(5,);
-    $findComune6 = $entiLocaliMapper->findComuneByRegioneProvincia(6,);
-    $findComune7 = $entiLocaliMapper->findComuneByRegioneProvincia(7,);
-    $findComune8 = $entiLocaliMapper->findComuneByRegioneProvincia(8,);
-    $findComune9 = $entiLocaliMapper->findComuneByRegioneProvincia(9,);
-    $findComune10 = $entiLocaliMapper->findComuneByRegioneProvincia(10,);
-    $findComune11 = $entiLocaliMapper->findComuneByRegioneProvincia(11,);
-    $findComune12 = $entiLocaliMapper->findComuneByRegioneProvincia(12,);
-    $findComune13 = $entiLocaliMapper->findComuneByRegioneProvincia(13,);
-    $findComune14 = $entiLocaliMapper->findComuneByRegioneProvincia(14,);
-    $findComune15 = $entiLocaliMapper->findComuneByRegioneProvincia(15,);
-    $findComune16 = $entiLocaliMapper->findComuneByRegioneProvincia(16,);
-    $findComune17 = $entiLocaliMapper->findComuneByRegioneProvincia(17,);
-    $findComune18 = $entiLocaliMapper->findComuneByRegioneProvincia(18,);
-    $findComune19 = $entiLocaliMapper->findComuneByRegioneProvincia(19,);
-    $findComune20 = $entiLocaliMapper->findComuneByRegioneProvincia(20,);
-}
+
+$entiLocaliMapper->findProvByReg();

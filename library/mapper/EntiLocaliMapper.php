@@ -14,6 +14,7 @@ class EntiLocaliMapper
     private const SELECT = 'SELECT nome FROM regioni';
     private const FIND = 'SELECT * FROM regioni where id = :id';
     private const FIND_PROVINCIA_BY_REGIONE = 'select p.nome from province p inner join regioni r on r.id = p.id_regione and r.id = :id';
+    private const FIND_PROV_BY_REG = 'SELECT p.nome FROM province p inner join regioni r on r.id = p.id_regione and r.nome = :regione';
     private const FIND_COMUNE_BY_REGIONE_E_PROVINCIA = 'select c.nome from comuni c inner join province p on p.id = c.id_provincia and p.id_regione = :idReg and p.id = :idProv';
     private const ERROR_GENERIC = -1;
 
@@ -88,6 +89,48 @@ class EntiLocaliMapper
         return TRUE;
     }
 
+
+    //utilizzato per la prima select delle regioni
+
+    /**
+     * @return array|mixed
+     */
+    public function fetchAllRegioni()
+    {
+        $query = 'SELECT nome FROM regioni WHERE 1';
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $rows = [];
+        foreach ($result as $row) {
+            $nome = $row['nome'];
+            $res = "<option value='$nome'>$nome</option>";
+            echo $res;
+            $rows[] = $res;
+        }
+        return $rows;
+    }
+
+    //utilizzato per la seconda select delle province
+
+    /**
+     * @return array|bool
+     */
+    public function findProvByReg()
+    {
+        if (isset($_GET['regione'])) {
+            header("Content-type: application/json");
+            $stmt = $this->conn->prepare(self::FIND_PROV_BY_REG);
+            $idReg = $_GET['regione'];
+            $stmt->bindParam(':regione', $idReg);
+            $stmt->execute();
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            echo json_encode($result);
+            return $result;
+        }
+        return TRUE;
+    }
+
     /**
      * @param $idReg
      * @param $idProv
@@ -116,4 +159,5 @@ class EntiLocaliMapper
         }
         return TRUE;
     }
+
 }
