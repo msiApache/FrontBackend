@@ -14,17 +14,14 @@ $entiLocaliMapper = new EntiLocaliMapper();
 $type = '';
 
 switch ($type) {
-    case 'find' :
-        echo json_encode($entiLocaliMapper->find(14));
+    case  'fetchAllRegioni':
+        $entiLocaliMapper->fetchAllRegioni();
         break;
-    case 'fetchAll' :
-        echo json_encode($entiLocaliMapper->fetchAll());
+    case 'findProByReg':
+        $entiLocaliMapper->findProvByReg();
         break;
-    case 'findProvinciaByRegione':
-        echo json_encode($entiLocaliMapper->findProvinciaByRegione(14));
-        break;
-    case 'findComuneByRegioneProvincia':
-        echo json_encode($entiLocaliMapper->findComuneByRegioneProvincia(14, 94));
+    case  'findComByPro':
+        $entiLocaliMapper->findComByPro();
         break;
     default :
         echo '';
@@ -35,21 +32,12 @@ echo '<h2 style="text-align: center; padding-bottom: 20px">Backfrontend</h2>';
 ?>
 <html>
 <head>
-    <title>Test select</title>
+    <title>Enti Locali</title>
     <script src="/JS/jquery-3.5.1.js"></script>
     <script src="/JS/select.js"></script>
 </head>
 <body>
-<!--<form name="modulo" id="idModulo" method="post" action="index.php">
-    Scegli la regione:
-    <select name="root_category" id="root_category" onChange="riempiSelect();">
-        <option value="#">Selezionare</option>
-        <option value=""></option>
-    </select>
-    <br/> <br/>
-    Qui appariranno le province:<select name="sub_category" id="sub_category"></select>
-</form>-->
-<h1>Registrati</h1>
+<h1>Autonomie Locali</h1>
 <form method="post" action="index.php">
     <fieldset>
         <legend>Luogo di Nascita</legend>
@@ -59,7 +47,6 @@ echo '<h2 style="text-align: center; padding-bottom: 20px">Backfrontend</h2>';
             <option value="">-- scegli una regione</option>
             <?php
             $entiLocaliMapper->fetchAllRegioni();
-            $entiLocaliMapper->findProvByReg();
             ?>
         </select>
 
@@ -69,9 +56,16 @@ echo '<h2 style="text-align: center; padding-bottom: 20px">Backfrontend</h2>';
         <select name="provincia" id="provincia">
             <option value="">-- scegli una provincia</option>
         </select>
+
+        <br>
+
+        <label for="comune">Comune:</label> <span id="errcomune"></span>
+        <select name="comune" id="comune">
+            <option value="">-- scegli un comune</option>
+        </select>
     </fieldset>
 </form>
-<br/> <br/>
+
 
 
 
