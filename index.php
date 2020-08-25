@@ -30,43 +30,72 @@ switch ($type) {
 echo '<h2 style="text-align: center; padding-bottom: 20px">Backfrontend</h2>';
 
 ?>
-<html>
+
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <title>Enti Locali</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
     <script src="/JS/jquery-3.5.1.js"></script>
     <script src="/JS/select.js"></script>
 </head>
 <body>
-<h1>Autonomie Locali</h1>
-<form method="post" action="index.php">
-    <fieldset>
-        <legend>Luogo di Nascita</legend>
-        <label for="regione">Regione:</label> <span id="errregione"></span>
 
-        <select name="regione" id="regione">
-            <option value="">-- scegli una regione</option>
-            <?php
-            $entiLocaliMapper->fetchAllRegioni();
-            ?>
-        </select>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm">
+            <h3 style="text-align: center; padding-bottom: 25px">Autonomie Locali</h3>
+            <form method="post" action="index.php">
+                <div class="form-group">
 
-        <br>
+                    <div class="form-group row">
+                        <label for="regione" class="col-sm-2 col-form-label">Regione:</label>
+                        <div class="col-sm-10">
+                            <select class="form-control" name="regione" id="regione" style="max-width: max-content">
+                                <option value="">-- scegli una regione</option>
+                                <?php
+                                $entiLocaliMapper->fetchAllRegioni();
+                                ?>
+                            </select>
+                        </div>
+                    </div>
 
-        <label for="provincia">Provincia:</label> <span id="errprovincia"></span>
-        <select name="provincia" id="provincia">
-            <option value="">-- scegli una provincia</option>
-        </select>
+                    <br>
 
-        <br>
+                    <div class="form-group row">
+                        <label for="provincia" class="col-sm-2 col-form-label">Provincia:</label>
+                        <div class="col-sm-10">
+                            <select class="form-control" name="provincia" id="provincia" style="max-width: max-content">
+                                <option value="">-- scegli una provincia</option>
+                                <?php
+                                $entiLocaliMapper->findProvByReg();
+                                ?>
+                            </select>
+                        </div>
+                    </div>
 
-        <label for="comune">Comune:</label> <span id="errcomune"></span>
-        <select name="comune" id="comune">
-            <option value="">-- scegli un comune</option>
-        </select>
-    </fieldset>
-</form>
+                    <br>
 
+                    <div class="form-group row">
+                        <label for="comune" class="col-sm-2 col-form-label">Comune:</label>
+                        <div class="col-sm-10">
+                            <select class="form-control" name="comune" id="comune" style="max-width: max-content">
+                                <option value="">-- scegli un comune</option>
+                                <?php
+                                $entiLocaliMapper->findComByPro();
+                                ?>
+                            </select>
+                        </div>
+                    </div>
 
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
 
 
 
